@@ -9,21 +9,18 @@
 
   <script>
     // Load GPT and define the interstitial ad slot
-    window.googletag = window.googletag || { cmd: [] };
-
-    googletag.cmd.push(function () {
-      // Define the interstitial slot (Out-of-Page)
-      googletag.defineOutOfPageSlot('/120040482/Interstitial', 'interstitial_slot')
-      .addService(googletag.pubads());
-
+    window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+      googletag.defineOutOfPageSlot('/120040482/Interstitial', 'div-gpt-ad-1751964282615-0').addService(googletag.pubads());
       googletag.pubads().enableSingleRequest();
+      googletag.pubads().collapseEmptyDivs();
       googletag.enableServices();
     });
 
     // Function to show the interstitial ad
     function showInterstitial() {
       googletag.cmd.push(function () {
-        googletag.display('interstitial_slot');
+        googletag.display('div-gpt-ad-1751964282615-0');
       });
     }
   </script>
@@ -48,6 +45,10 @@
   <p>Click the button below to show an interstitial ad:</p>
 
   <button onclick="showInterstitial()">Show Interstitial Ad</button>
+
+  <!-- /120040482/Interstitial -->
+  <div id='div-gpt-ad-1751964282615-0'>
+  </div>
 
 </body>
 </html>
