@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GAM Interstitial Ad Demo</title>
+
+  <!-- Load GPT library -->
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+
+  <script>
+    // Load GPT and define the interstitial ad slot
+    window.googletag = window.googletag || { cmd: [] };
+
+    googletag.cmd.push(function () {
+      // Define the interstitial slot (Out-of-Page)
+      googletag.defineOutOfPageSlot('/1234567/interstitial_web', googletag.enums.OutOfPageFormat.INTERSTITIAL)
+        .addService(googletag.pubads());
+
+      googletag.pubads().enableSingleRequest();
+      googletag.enableServices();
+    });
+
+    // Function to show the interstitial ad
+    function showInterstitial() {
+      googletag.cmd.push(function () {
+        googletag.display('/1234567/interstitial_web');
+      });
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Google Ad Manager Interstitial Demo</h1>
+  <p>Click the button below to show an interstitial ad:</p>
+
+  <button onclick="showInterstitial()">Show Interstitial Ad</button>
+
+</body>
+</html>
