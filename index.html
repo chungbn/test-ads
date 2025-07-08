@@ -13,8 +13,8 @@
 
     googletag.cmd.push(function () {
       // Define the interstitial slot (Out-of-Page)
-      googletag.defineOutOfPageSlot('/120040482/Interstitial', googletag.enums.OutOfPageFormat.INTERSTITIAL)
-        .addService(googletag.pubads());
+      googletag.defineOutOfPageSlot('/120040482/Interstitial', 'interstitial_slot')
+      .addService(googletag.pubads());
 
       googletag.pubads().enableSingleRequest();
       googletag.enableServices();
@@ -23,7 +23,7 @@
     // Function to show the interstitial ad
     function showInterstitial() {
       googletag.cmd.push(function () {
-        googletag.display('/120040482/Interstitial');
+        googletag.display('interstitial_slot');
       });
     }
   </script>
