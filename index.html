@@ -23,7 +23,7 @@
       googletag.cmd.push(() => {
         // Define a web interstitial ad slot.
         interstitialSlot = googletag.defineOutOfPageSlot(
-          "/120040482/Interstitial",
+          "/120040482/interstitial_game",
           googletag.enums.OutOfPageFormat.INTERSTITIAL,
         );
 
@@ -57,10 +57,6 @@
           // googletag.pubads().set("document_language", "en");
         }
 
-        // Define static ad slots.
-        googletag
-          .defineSlot("/6355419/Travel/Europe", [100, 100], "static-ad-1")
-          .addService(googletag.pubads());
        googletag.pubads().setTargeting("test", "true");
 
         // Enable SRA and services.
@@ -80,7 +76,6 @@
     </style>
   </head>
   <body>
-    <div id="static-ad-1" style="width: 100px; height: 100px"></div>
     <div class="content">
       <span id="status">Web interstitial is not supported on this page.</span>
       <p>
