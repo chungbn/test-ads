@@ -21,13 +21,12 @@
       let interstitialSlot;
 
       googletag.cmd.push(() => {
-       console.log("define web interstitial ad slot")
         // Define a web interstitial ad slot.
         interstitialSlot = googletag.defineOutOfPageSlot(
           "/120040482/interstitial_game",
           googletag.enums.OutOfPageFormat.INTERSTITIAL,
         );
-        console.log(interstitialSlot)
+
         // Slot returns null if the page or device does not support interstitials.
         if (interstitialSlot) {
           // Enable optional interstitial triggers and register the slot.
@@ -46,9 +45,8 @@
           // If this event doesn't fire, try clearing local storage and refreshing
           // the page.
           googletag.pubads().addEventListener("slotOnload", (event) => {
-            console.log("slot on load")
-            console.log(event)
             if (interstitialSlot === event.slot) {
+              document.getElementById("link").style.display = "block";
               document.getElementById("status").textContent = "Interstitial is loaded.";
             }
           });
@@ -59,27 +57,52 @@
           // googletag.pubads().set("document_language", "en");
         }
 
+        // Define static ad slots.
+        googletag
+          .defineSlot("/120040482/interstitial_game", [320, 480], "static-ad-1")
+          .addService(googletag.pubads());
+
         // Enable SRA and services.
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
       });
-      function showInterstitial() {
-        googletag.cmd.push(function () {
-          googletag.display(interstitialSlot);
-        });
-      }
     </script>
     <style>
+      #link {
+        display: none;
+      }
 
       div.content {
         position: fixed;
+        top: 50%;
       }
     </style>
   </head>
   <body>
+    <div id="static-ad-1" style="width: 320px; height: 480px"></div>
     <div class="content">
-      <p id="status">Web interstitial is not supported on this page.</p>
-      <button onclick="showInterstitial()">Show Interstitial Ad</button>
+      <span id="status">Web interstitial is not supported on this page.</span>
+      <p>
+        <a id="link" href="https://www.example.com/">TRIGGER INTERSTITIAL</a>
+      </p>
+      <p>
+        <!--
+          You can prevent specific links from triggering GPT-managed web
+          interstials by adding a data-google-interstitial="false" attribute to
+          the anchor element or any ancestor of the anchor element.
+        -->
+        <a data-google-interstitial="false" href="https://www.example.com/">
+          This link will never trigger an interstitial
+        </a>
+      </p>
     </div>
+    <script>
+      googletag.cmd.push(() => {
+        // Ensure the first call to display comes after static ad slot
+        // divs are defined. If you do not have any static ad slots, this
+        // call can be made immediately after services are enabled.
+        googletag.display(interstitialSlot);
+      });
+    </script>
   </body>
 </html>
