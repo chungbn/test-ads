@@ -1,104 +1,54 @@
 <!DOCTYPE html>
-<!--
- @license
- Copyright 2022 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Display a GPT-managed web interstitial ad." />
-    <title>Display a web interstitial ad</title>
-    <script
-      async
-      src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      window.googletag = window.googletag || { cmd: [] };
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GAM Interstitial Ad Demo</title>
 
-      let interstitialSlot;
+  <!-- Load GPT library -->
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 
-      googletag.cmd.push(() => {
-        // Define a web interstitial ad slot.
-        interstitialSlot = googletag.defineOutOfPageSlot(
-          "/120040482/interstitial_game",
-          googletag.enums.OutOfPageFormat.INTERSTITIAL,
-        );
+  <script>
+    // Load GPT and define the interstitial ad slot
+    window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+      googletag.defineOutOfPageSlot('/120040482/interstitial_game', 'div-gpt-ad-1751964282615-0').addService(googletag.pubads());
+      googletag.pubads().enableSingleRequest();
+      googletag.pubads().collapseEmptyDivs();
+      googletag.enableServices();
+    });
 
-        // Slot returns null if the page or device does not support interstitials.
-        if (interstitialSlot) {
-          // Enable optional interstitial triggers and register the slot.
-          interstitialSlot.addService(googletag.pubads()).setConfig({
-            interstitial: {
-              triggers: {
-                navBar: true,
-                unhideWindow: true,
-              },
-            },
-          });
-
-          document.getElementById("status").textContent = "Interstitial is loading...";
-
-          // Add event listener to enable navigation once the interstitial loads.
-          // If this event doesn't fire, try clearing local storage and refreshing
-          // the page.
-          googletag.pubads().addEventListener("slotOnload", (event) => {
-            if (interstitialSlot === event.slot) {
-              document.getElementById("link").style.display = "block";
-              document.getElementById("status").textContent = "Interstitial is loaded.";
-            }
-          });
-
-          // By default, the detected language of the current page is used to render
-          // interstitial UI elements. This behavior can be overridden by manually
-          // specifying the document language:
-          // googletag.pubads().set("document_language", "en");
-        }
-
-       googletag.pubads().setTargeting("test", "true");
-
-        // Enable SRA and services.
-        googletag.pubads().enableSingleRequest();
-        googletag.enableServices();
+    // Function to show the interstitial ad
+    function showInterstitial() {
+      googletag.cmd.push(function () {
+        googletag.display('div-gpt-ad-1751964282615-0');
       });
-    </script>
-    <style>
-      #link {
-        display: none;
-      }
+    }
+  </script>
 
-      div.content {
-        position: fixed;
-        top: 50%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="content">
-      <span id="status">Web interstitial is not supported on this page.</span>
-      <p>
-        <a id="link" href="https://www.example.com/">TRIGGER INTERSTITIAL</a>
-      </p>
-      <p>
-        <!--
-          You can prevent specific links from triggering GPT-managed web
-          interstials by adding a data-google-interstitial="false" attribute to
-          the anchor element or any ancestor of the anchor element.
-        -->
-        <a data-google-interstitial="false" href="https://www.example.com/">
-          This link will never trigger an interstitial
-        </a>
-      </p>
-    </div>
-    <script>
-      googletag.cmd.push(() => {
-        // Ensure the first call to display comes after static ad slot
-        // divs are defined. If you do not have any static ad slots, this
-        // call can be made immediately after services are enabled.
-        googletag.display(interstitialSlot);
-      });
-    </script>
-  </body>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Google Ad Manager Interstitial Demo</h1>
+  <p>Click the button below to show an interstitial ad:</p>
+
+  <button onclick="showInterstitial()">Show Interstitial Ad</button>
+
+  <!-- /120040482/Interstitial -->
+  <div id='div-gpt-ad-1751964282615-0'>
+  </div>
+
+</body>
 </html>
