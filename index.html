@@ -61,6 +61,7 @@
         googletag
           .defineSlot("/6355419/Travel/Europe", [100, 100], "static-ad-1")
           .addService(googletag.pubads());
+       googletag.pubads().setTargeting("test", "true");
 
         // Enable SRA and services.
         googletag.pubads().enableSingleRequest();
