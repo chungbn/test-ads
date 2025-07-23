@@ -46,7 +46,6 @@
           // the page.
           googletag.pubads().addEventListener("slotOnload", (event) => {
             if (interstitialSlot === event.slot) {
-              document.getElementById("link").style.display = "block";
               document.getElementById("status").textContent = "Interstitial is loaded.";
             }
           });
